@@ -1,6 +1,6 @@
 <?php
 
-require_once 'models/Usuario.php';
+require_once __DIR__ . '/../models/Usuario.php';
 
 class UsuarioController
 {
@@ -13,14 +13,16 @@ class UsuarioController
 
     public function handleRequest()
     {
+        header('Content-Type: application/json');
+        
         $id = isset($_GET['id']) ? $_GET['id'] : null;
 
         if ($id) {
             $usuario = $this->usuarioModel->getById($id);
-            echo json_encode($usuario);
+            echo json_encode($usuario, JSON_PRETTY_PRINT);
         } else {
             $usuarios = $this->usuarioModel->getAll();
-            echo json_encode($usuarios);
+            echo json_encode($usuarios, JSON_PRETTY_PRINT);
         }
     }
 }
